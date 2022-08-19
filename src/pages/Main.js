@@ -60,7 +60,21 @@ export default function Main() {
   const [value, setValue] = React.useState(new Date());
   const [name, setName] = useState("");
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const localData = localStorage.getItem("certificate");
+    const moveData = JSON.parse(localData);
+    console.log(moveData.name);
+    console.log(moveData.imageURL);
+    console.log(typeof Date.parse(moveData.date));
+    setImage(localStorage.getItem("imageValue"));
+    setCertificate(
+      certificate.concat({
+        name: moveData.name,
+        imageURL: moveData.imageURL,
+        date: new Date(moveData.date),
+      })
+    );
+  }, []);
 
   const complete = () => {
     setCertificate(
@@ -70,9 +84,14 @@ export default function Main() {
         date: value,
       })
     );
-    localStorage.setItem("nameItem", name);
-    localStorage.setItem("imageItem", URL.createObjectURL(image[0]));
-    localStorage.setItem("valueItem", value);
+    localStorage.setItem(
+      "certificate",
+      JSON.stringify({
+        name: name,
+        imageURL: URL.createObjectURL(image[0]),
+        date: value,
+      })
+    );
   };
 
   const [state, setState] = React.useState({
@@ -91,6 +110,7 @@ export default function Main() {
 
   const imageUpload = (e) => {
     setImage([...e.target.files]);
+    localStorage("imageValue", ...e.target.files);
   };
 
   const logOut = () => {
