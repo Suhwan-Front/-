@@ -50,7 +50,7 @@ const style = {
   p: 4,
 };
 
-export default function Main() {
+export default function Main(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -63,9 +63,9 @@ export default function Main() {
   useEffect(() => {
     const localData = localStorage.getItem("certificate");
     const moveData = JSON.parse(localData);
-    console.log(moveData.name);
-    console.log(moveData.imageURL);
-    console.log(typeof Date.parse(moveData.date));
+    //console.log(moveData.name);
+    //console.log(moveData.imageURL);
+    //console.log(typeof Date.parse(moveData.date));
     setImage(localStorage.getItem("imageValue"));
     setCertificate(
       certificate.concat({

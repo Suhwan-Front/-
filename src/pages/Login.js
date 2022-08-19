@@ -12,17 +12,41 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const theme = createTheme();
 
-export default function Login() {
+export default function Login(props) {
+  const [ID, setID] = useState("test");
+  const [Password, setPassword] = useState(1234);
+  const [loc, setLoc] = useState("/");
+
+  useEffect(() => {
+    axios
+      .get("/api/login")
+      .then((res) => {
+        setID(res.data.ID.toString());
+        setPassword(res.data.Password.toString());
+        console.log(ID);
+        console.log(Password);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
   useEffect(() => {
     localStorage.setItem("loginItem", "false");
   });
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    if (ID == data.get("email") && Password == data.get("password")) {
+      window.location.href = "http://localhost:3000/";
+    } else {
+      alert("아이디 혹은 비밀번호가 맞지 않습니다.");
+    }
     console.log({
       email: data.get("email"),
       password: data.get("password"),
@@ -87,7 +111,6 @@ export default function Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               onClick={loginClick}
-              href="/"
             >
               로그인
             </Button>
