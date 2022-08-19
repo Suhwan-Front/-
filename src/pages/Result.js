@@ -164,7 +164,7 @@ function Result() {
                         <SmallImpossible>불가능</SmallImpossible>
                     </Th>
                     <Th>
-                        기능사 취득 후 3년 실무경력(경력응시)
+                        기능사 취득 후 3년 실무경력 (경력응시)
                     </Th>
                 </Tr>
                 <Tr>
@@ -180,7 +180,7 @@ function Result() {
                         <SmallImpossible>불가능</SmallImpossible>
                     </Th>
                     <Th>
-                        학점인정법률의거 106점 이상 취득(기타응시)
+                        학점인정법률의거 106점 이상 취득 (기타응시)
                     </Th>
                 </Tr>
             </thead>

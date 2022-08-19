@@ -140,10 +140,9 @@ function Test2() {
                 
             </thead>
         </Table>
-
         <Button1 onClick={goNext}>다음</Button1>
     </>
   )
 }
 
-export default Test2
+export default Test2;
