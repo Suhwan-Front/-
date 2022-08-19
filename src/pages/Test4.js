@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
-import StyledEngine from '@mui/styled-engine';
 import { useNavigate } from 'react-router-dom';
 
 const Table = styled.table`
@@ -44,16 +43,36 @@ const Button1 = styled.button`
     margin-top: 40px;
 `;
 
+const Button2 = styled.button`
+    width: 50px;
+    height: 30px;
+    // position: relative;
+    // left: 50%;
+    // transform: translateX(-50%);
+`;
+
 const StyleTable = styled.th`
     background-color: rgb(230, 230, 230);
     font-weight: 700;
     height : 40px;
 `;
 
-function Test() {
+const Input = styled.input`
+    width: 130px;
+    margin-right: 15px;
+`;
+
+const Textarea = styled.textarea`
+    width: 260px;
+    height: 60px;
+`;
+
+
+
+function Test4() {
     const navigate = useNavigate();
     const goNext = () => {
-        navigate('/Test2');
+        navigate('/Result');
     };
   return (
     <>
@@ -73,35 +92,50 @@ function Test() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <TitleDiv>자격선택</TitleDiv>
+        <TitleDiv>수상경력입력</TitleDiv>
         <hr></hr>
         <Table>
             <thead>
+                <StyleTable>
+                    대회구분
+                </StyleTable>
+                <Th>
+                    <select>
+                        <option value="it1" selected="selected">대회구분</option>
+                        <option value="it1">국제</option>
+                        <option value="it1">국외</option>
+                    </select>
+                    <select>
+                        <option value="it1">금</option>
+                        <option value="it1" selected="selected">순위</option>
+                    </select>
+                </Th>
                 <Tr>
                     <StyleTable>
-                        응시계열명
+                        대회명
                     </StyleTable>
                     <Th>
-                        정보처리기사
+                        <form action='#'>
+                            <Input type="text" name=''></Input>
+                        </form>
                     </Th>
                 </Tr>
                 <Tr>
                     <StyleTable>
-                        응시종목명
+                        수상일자
                     </StyleTable>
                     <Th>
-                        <select>
-                            <option>정보처리기사</option>
-                            <option>정보처리기사</option>
-                            <option>정보처리기사</option>
-                        </select>
+                        <form action='#'>
+                            <Input type="date" name=''></Input>
+                        </form>
                     </Th>
                 </Tr>
             </thead>
         </Table>
+
         <Button1 onClick={goNext}>다음</Button1>
     </>
   )
 }
 
-export default Test
+export default Test4

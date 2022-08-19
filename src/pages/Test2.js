@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
-import StyledEngine from '@mui/styled-engine';
+
 import { useNavigate } from 'react-router-dom';
 
 const Table = styled.table`
@@ -44,16 +44,24 @@ const Button1 = styled.button`
     margin-top: 40px;
 `;
 
+const Button2 = styled.button`
+    width: 50px;
+    height: 30px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+`;
+
 const StyleTable = styled.th`
     background-color: rgb(230, 230, 230);
     font-weight: 700;
     height : 40px;
 `;
 
-function Test() {
+function Test2() {
     const navigate = useNavigate();
     const goNext = () => {
-        navigate('/Test2');
+        navigate('/Test3');
     };
   return (
     <>
@@ -73,35 +81,69 @@ function Test() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <TitleDiv>자격선택</TitleDiv>
+        <TitleDiv>학력정보입력</TitleDiv>
         <hr></hr>
         <Table>
             <thead>
                 <Tr>
                     <StyleTable>
-                        응시계열명
+                        학력구분
                     </StyleTable>
                     <Th>
-                        정보처리기사
+                        <select>
+                            <option value="it1">고졸이하</option>
+                            <option value="it1">2년제대학</option>
+                            <option value="it2">3년제대학</option>
+                            <option value="it2">4년제대학</option>
+                            <option value="it1">5년제대학</option>
+                            <option value="it1">6년제대학</option>
+                            <option value="it1">석사학위 취득자</option>
+                        </select>
                     </Th>
                 </Tr>
                 <Tr>
                     <StyleTable>
-                        응시종목명
+                        학교(기관)명
+                    </StyleTable>
+                    <Th>
+                        <Button2>검색</Button2>
+                    </Th>
+                </Tr>
+                <Tr>
+                    <StyleTable>
+                        학과/전공명
+                    </StyleTable>
+                    <Th>
+                        <Button2>검색</Button2>
+                    </Th>
+                </Tr>
+                <Tr>
+                    <StyleTable>
+                        학적상태
                     </StyleTable>
                     <Th>
                         <select>
-                            <option>정보처리기사</option>
-                            <option>정보처리기사</option>
-                            <option>정보처리기사</option>
+                            <option value="it1">졸업예정</option>
+                            <option value="it2">졸업</option>
+                            <option value="it2">재학중</option>
                         </select>
                     </Th>
                 </Tr>
+                <Tr>
+                    <StyleTable>
+                        중퇴/졸업일자
+                    </StyleTable>
+                    <Th>
+                        <input type="date"></input>
+                    </Th>
+                </Tr>
+                
             </thead>
         </Table>
+
         <Button1 onClick={goNext}>다음</Button1>
     </>
   )
 }
 
-export default Test
+export default Test2
