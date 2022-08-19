@@ -11,6 +11,10 @@ import styled from "styled-components";
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import Card from '../components/Card'
 
 const FlexDiv = styled.div`
   display: flex;
@@ -19,13 +23,9 @@ const FlexDiv = styled.div`
   height: 70px;
 `;
 
-const ImgTag = styled.img`
-  width: 100px;
-  margin-left:20px;
-`;
-
 const style = {
   display: 'flex',
+  flexWrap: 'wrap',
   alignItems: 'center',
   position: 'absolute',
   top: '50%',
@@ -42,20 +42,28 @@ export default function Main() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [image, setImage] = useState([]);
   const [images, setImages] = useState([]);
+  const [certificate, setCertificate] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
+  const [value, setValue] = React.useState(new Date());
+  const [name, setName] = useState('');
 
-  const imageUpload = (e) => {
-    setImages([...images, ...e.target.files]);
+  const complete = () => {
+    setCertificate(certificate.concat({ name: name, imageURL: URL.createObjectURL(image[0]), date: value }))
   }
 
-  useEffect(() => {
-    if (images.length < 1) return;
-    const newImageURLs = [];
-    images.forEach(image => newImageURLs.push(URL.createObjectURL(image)));
-    console.log(newImageURLs)
-    setImageURLs(newImageURLs);
-  }, [images]);
+  const imageUpload = (e) => {
+    setImage([...e.target.files]);
+  }
+
+  // useEffect(() => {
+  //   if (images.length < 1) return;
+  //   const newImageURLs = [...imageURLs];
+  //   image.forEach(image => newImageURLs.push(URL.createObjectURL(image)));
+  //   console.log(newImageURLs)
+  //   setImageURLs(newImageURLs);
+  // }, [images]);
 
   return (
     <>
@@ -82,7 +90,7 @@ export default function Main() {
 
       <Stack spacing={2}>
 
-        {imageURLs.map(el => <FlexDiv><ImgTag src={el}></ImgTag></FlexDiv>)}
+        {certificate.map(cer => <Card certificate={cer} />)}
         <Button variant="contained" onClick={handleOpen}>+</Button>
         <Modal
           open={open}
@@ -91,12 +99,25 @@ export default function Main() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <TextField id="outlined-basic" label="자격증 이름" variant="outlined" />
+            <TextField id="outlined-basic" label="자격증 이름" variant="outlined" onChange={e => setName(e.target.value)} />
             <IconButton color="primary" aria-label="upload picture" component="label">
               <input hidden accept="image/*" type="file" onChange={imageUpload} />
               <PhotoCamera />
             </IconButton>
-            <Button variant="contained">완료</Button>
+            <FlexDiv>
+
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <MobileDatePicker
+                  label="유효 기간"
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </FlexDiv>
+            <Button variant="contained" onClick={complete}>완료</Button>
           </Box>
         </Modal>
       </Stack>
