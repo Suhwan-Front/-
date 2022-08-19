@@ -15,7 +15,6 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 const FlexDiv = styled.div`
   display: flex;
   align-items: center;
-  background-color: black;
   width: 100%;
   height: 70px;
 `;
@@ -24,11 +23,6 @@ const ImgTag = styled.img`
   width: 100px;
   margin-left:20px;
 `;
-
-const CustomButton = styled(Button)`
-  height: 40px;
-  margin-left:500px;
-`
 
 const style = {
   display: 'flex',
