@@ -12,10 +12,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useEffect } from "react";
 
 const theme = createTheme();
 
 export default function Login() {
+  useEffect(() => {
+    localStorage.setItem("loginItem", "false");
+  });
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -23,6 +27,10 @@ export default function Login() {
       email: data.get("email"),
       password: data.get("password"),
     });
+  };
+
+  const loginClick = () => {
+    localStorage.setItem("loginItem", "true");
   };
 
   return (
@@ -78,7 +86,8 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              href=""
+              onClick={loginClick}
+              href="/"
             >
               로그인
             </Button>
