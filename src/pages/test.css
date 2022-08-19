@@ -1,0 +1,72 @@
+.title {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.tablestyle {
+    background-color: rgb(230, 230, 230);
+    font-weight: 700;
+}
+
+
+th, td {
+    border: 1px solid black;
+    padding: 7px;
+    font-weight: 400;
+}
+
+
+.button1 {
+    width: 50px;
+    height: 30px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 40px;
+}
+
+.button2 {
+    width: 50px;
+    height: 30px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.possible {
+    color: rgb(64, 64, 153);
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.Small-possible {
+    color: rgb(64, 64, 153);
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.impossible {
+    color: #9c2a2a;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.Small-impossible {
+    color: #9c2a2a;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+}
