@@ -60,7 +60,7 @@ export default function Main() {
   const [value, setValue] = React.useState(new Date());
   const [name, setName] = useState("");
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const complete = () => {
     setCertificate(
@@ -105,16 +105,18 @@ export default function Main() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        <Link to="Test">
+          <ListItem key='test' disablePadding>
             <ListItemButton>
+
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary='test' />
+
             </ListItemButton>
           </ListItem>
-        ))}
+        </Link>
       </List>
       <Divider />
       <List>
