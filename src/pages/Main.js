@@ -1,32 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import styled from "styled-components";
+import { styled as styledMUI } from "@mui/material/styles";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import ViewListIcon from "@mui/icons-material/ViewList";
-
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import Paper from "@mui/material/Paper";
 
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import Card from "../components/Card";
+
+import TopNav from "./TopNav";
 
 const FlexDiv = styled.div`
   display: flex;
@@ -50,6 +40,14 @@ const style = {
   p: 4,
 };
 
+const Item = styledMUI(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
 export default function Main(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -63,9 +61,6 @@ export default function Main(props) {
   useEffect(() => {
     const localData = localStorage.getItem("certificate");
     const moveData = JSON.parse(localData);
-    //console.log(moveData.name);
-    //console.log(moveData.imageURL);
-    //console.log(typeof Date.parse(moveData.date));
     setImage(localStorage.getItem("imageValue"));
     setCertificate(
       certificate.concat({
@@ -94,112 +89,23 @@ export default function Main(props) {
     );
   };
 
-  const [state, setState] = React.useState({
-    left: false,
-  }); //매뉴판 왼쪽에서 뜨기
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setState({ ...state, [anchor]: open });
-  }; //열고 닫고 하는거 키보드로 할 수있음
-
   const imageUpload = (e) => {
     setImage([...e.target.files]);
     localStorage("imageValue", ...e.target.files);
   };
 
-  const logOut = () => {
-    localStorage.setItem("loginItem", "false");
-    window.location.reload();
-  };
-
-  const list = (anchor) => (
-    <Box
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            {["left"].map((anchor) => (
-              <React.Fragment key={anchor}>
-                <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="menu"
-                  sx={{ mr: 2 }}
-                  onClick={toggleDrawer(anchor, true)}
-                >
-                  <ViewListIcon />
-                </IconButton>
-                <Drawer
-                  anchor={anchor}
-                  open={state[anchor]}
-                  onClose={toggleDrawer(anchor, false)}
-                >
-                  {list(anchor)}
-                </Drawer>
-              </React.Fragment>
-            ))}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              자격증 목록
-            </Typography>
-            {localStorage.getItem("loginItem") === "false" ? (
-              <Button color="inherit">
-                <Link to="Login">Login</Link>
-              </Button>
-            ) : (
-              <Button color="inherit">
-                <Link to="/" onClick={logOut}>
-                  Logout
-                </Link>
-              </Button>
-            )}
-          </Toolbar>
-        </AppBar>
-      </Box>
+      <TopNav name="자격증 목록" />
       <br />
       {localStorage.getItem("loginItem") === "false" ? (
         <Stack spacing={2}>
-          <img alt="x_image" src="../img/multiply.png" />
-          <p>로그인 후 이용해주세요</p>
+          <Item>
+            <RemoveCircleOutlineIcon sx={{ color: "red", fontSize: "101px" }} />
+          </Item>
+          <Item>
+            <p>로그인 후 이용해주세요</p>
+          </Item>
         </Stack>
       ) : (
         <Stack spacing={2}>

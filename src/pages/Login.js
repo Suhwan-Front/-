@@ -20,7 +20,6 @@ const theme = createTheme();
 export default function Login(props) {
   const [ID, setID] = useState("test");
   const [Password, setPassword] = useState(1234);
-  const [loc, setLoc] = useState("/");
 
   useEffect(() => {
     axios
@@ -42,7 +41,7 @@ export default function Login(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (ID == data.get("email") && Password == data.get("password")) {
+    if (ID === data.get("email") && Password === data.get("password")) {
       window.location.href = "http://localhost:3000/";
     } else {
       alert("아이디 혹은 비밀번호가 맞지 않습니다.");
